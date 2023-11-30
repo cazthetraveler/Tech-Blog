@@ -1,0 +1,20 @@
+<section class="post">
+    <h1>{{blogpost.title}}</h1>
+    <h2>By {{blogpost.author_name.username}}</h2>
+
+    <p>{{blogpost.content}}</p>
+</section>
+<section class="comment-section">
+    {{#each comments as |comment|}}
+    {{}} says: {{}}
+    {{/each}}
+</section>
+{{#if loggedIn}}
+<section class="input-comment">
+    <form id="comment-form">
+        <label for="comment">Enter comment:</label>
+        <textarea name="comment" form="comment-form"></textarea>
+        <button type="submit">SUBMIT</button>
+    </form>
+</section>
+{{/if}}
