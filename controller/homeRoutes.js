@@ -1,6 +1,6 @@
 const router = require("express").Router();
 const withAuth = require("../utils/auth");
-const { BlogPost, User } = require("../models");
+const { BlogPost, User, Comment } = require("../models");
 
 //get all blog posts
 router.get("/", async (req, res) => {
@@ -30,49 +30,70 @@ router.get("/login", (req, res) => {
   res.render("login");
 });
 
-//get dashboard page, redirect if not logged in
-router.get("/dashboard", (req, res) => {
-  if (!req.session.loggedIn) {
-    res.redirect("/login");
-    return;
-  }
+// get one blogpost :PP
+// router.get("/blogposts/:id", async (req, res) => {
+//   try {
+//     const blogPostData = await BlogPost.findByPk(req.params.id, {
+//       include: [
+//         {
+//           model: User,
+//           as: "author_name"
+//         }
+//       ]});
+//     const blogpost = blogPostData.get({plain: true});
 
-  res.render("dashboard", { loggedIn: req.session.loggedIn });
-});
+//     res.render("blogposts", {blogpost, loggedIn: req.session.loggedIn});
+//   } catch (err) {
+//     res.status(500).json(err);
+//   };
+// });
 
-//get one blogpost :PP
+// router.get('/blogposts/:id', async (req, res) => {
+//   try {
+//       const commentData = await Comment.findAll({
+//           where: { id: req.params.id },
+//       });
+//       if (commentData.length === 0) {
+//           res.status(404).json({ message: `The id ${req.params.id} has no comment.` });
+//           return;
+//       }
+//       res.status(200).json(commentData);
+//   } catch (err) {
+//       res.status(500).json(err);
+//   }
+// });
+
 router.get("/blogposts/:id", async (req, res) => {
   try {
-    const blogPostData = await BlogPost.findByPk(req.params.id, {
-      include: [
-        {
-          model: User,
-          as: "author_name",
-        },
-      ],
-    });
-    const blogpost = blogPostData.get({ plain: true });
+    const blogPostId = req.params.id;
 
-    res.render("blogposts", { blogpost, loggedIn: req.session.loggedIn });
+    const blogPostData = await BlogPost.findByPk(blogPostId, {
+      include: Comment,
+    });
+
+    if (!blogPostData) {
+      res
+        .status(404)
+        .json({ message: `Blog post with id ${blogPostId} not found.` });
+      return;
+    }
+
+    const comments = blogPostData.comments;
+
+    // if (comments.length === 0) {
+    //   res.status(404).json({ message: `The blog post with id ${blogPostId} has no comments.` });
+    //   return;
+    // }
+
+    res.render("blogposts", {
+      blogPost: blogPostData.get({ plain: true }),
+      comments,
+      loggedIn: req.session.loggedIn,
+    });
   } catch (err) {
+    console.error("Error retrieving comments:", err);
     res.status(500).json(err);
   }
-});
-
-//get all comments on a blogpost
-router.get("/blogposts/:id", async (req, res) => {
-  const commentData = await Comment.findByPk({
-    include: [
-      {
-        model: BlogPost,
-        as: "blogpost_id", //idk??
-      },
-    ],
-  }).catch((err) => {
-    res.json(err);
-  });
-  const comments = commentData.map((comment) => comment.get({ plain: true }));
-  res.render("blogposts", { comments, loggedIn: req.session.loggedIn });
 });
 
 module.exports = router;
