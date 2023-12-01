@@ -1,21 +1,48 @@
-<section>
-  <h1>Dashboard</h1>
-  <button id="add-post">Add Post</button>
-
-  <form id="blog-form">
-    <section class="blog-section">
-      <label for="blog-title">Title:</label>
-      <input type="text" id="blog-title" />
-    </section>
-    <section class="blog-section">
-      <label for="blog-content">Content:</label>
-      <input type="text" id="blog-content" />
-    </section>
-    <section class="blog-section">
-      <button type="submit">SUBMIT</button>
-    </section>
-
-  </form>
-</section>
+<div class="container">
+  <h2>DASHBOARD</h2>
+  <div class="row mb-3">
+    <div class="col">
+      {{#if blogposts}}
+        <h3>Your Posts:</h3>
+        {{#each blogposts as |blogpost|}}
+          <div class="card my-3 p-2" id="{{id}}">
+            <div class="card-body">
+              <h5 class="card-title">{{blogpost.title}}</h5>
+              <p class="card-text">Posted on: {{format_time posted_date}}</p>
+              <button class="btn btn-success">EDIT</button>
+              <button class="btn btn-danger">DELETE</button>
+            </div>
+          </div>
+        {{/each}}
+      {{/if}}
+      {{#unless blogposts}}
+        <h3>No posts yet!</h3>
+      {{/unless}}
+    </div>
+  </div>
+  <div class="row mb-3">
+    <div class="col card p-2">
+      <h3>Add a Post:</h3>
+      <form class="blog-form">
+        <div class="mb-3">
+          <label for="blog-title" class="form-label">Title:</label>
+          <input type="text" id="blog-title" class="form-control" />
+        </div>
+        <div class="mb-3">
+          <label for="blog-content" class="form-label">Content:</label>
+          <textarea
+            name="blog-content"
+            form="blog-form"
+            class="form-control"
+            rows="3"
+          ></textarea>
+        </div>
+        <div class="mb-3">
+          <button type="submit" class="btn btn-success">POST</button>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>
 
 <script src="/js/postblog.js"></script>
