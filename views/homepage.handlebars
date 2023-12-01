@@ -1,3 +1,8 @@
-{{#each blogposts as |blogpost|}}
-{{> blogpost-details}}
-{{/each}}
+<div class="container">
+    <h2 class="text-center">Daily Blogs</h2>
+    <div class="row">
+      {{#each blogposts as |blogpost|}}
+        {{> blogpost-details}}
+        {{/each}}  
+    </div>
+</div>
