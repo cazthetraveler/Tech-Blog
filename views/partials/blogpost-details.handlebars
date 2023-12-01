@@ -1,7 +1,10 @@
-<section class="homepage-blogs">
-  <h2><a href="/blogposts/{{id}}">{{title}}</a><span class="author">
-      by
-      {{author_name.username}}
+<div class="card my-3 p-2">
+  <div class="card-body">
+    <h5 class="card-title">{{title}}</h5>
+    <p class="card-text">By:
+      <span class="fst-italic fw-semibold">{{author_name.username}}</span>
       on
-      {{format_time posted_date}}</span></h2>
-</section>
+      {{format_time posted_date}}</p>
+    <a href="/blogposts/{{id}}" class="btn btn-secondary">READ</a>
+  </div>
+</div>
