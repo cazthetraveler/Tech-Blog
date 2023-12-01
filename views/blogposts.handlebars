@@ -1,20 +1,54 @@
-<section class="post">
-    <h1>{{blogpost.title}}</h1>
-    <h2>By {{blogpost.author_name.username}}</h2>
+<div class="container">
+  <div class="row my-5">
+    <div class="col">
+      <h2 class="blog-title" id="{{blogPost.id}}">{{blogPost.title}}</h2>
+      <h3>by {{blogPost.author_name.username}}</h3>
+      <h4>Posted on: {{format_time blogPost.posted_date}}</h4>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col">
+      <p>{{blogPost.content}}</p>
+    </div>
+  </div>
 
-    <p>{{blogpost.content}}</p>
-</section>
-<section class="comment-section">
-    {{#each comments as |comment|}}
-    {{}} says: {{}}
-    {{/each}}
-</section>
-{{#if loggedIn}}
-<section class="input-comment">
-    <form id="comment-form">
-        <label for="comment">Enter comment:</label>
-        <textarea name="comment" form="comment-form"></textarea>
-        <button type="submit">SUBMIT</button>
-    </form>
-</section>
-{{/if}}
+  <div class="row">
+    <div class="col">
+      <h3>Comments:</h3>
+      {{#if comments}}
+        {{#each blogPost.comments as |comment|}}
+          <div class="card p-2">
+            <h5>{{comment.user_id.username}}:</h5>
+            <p>{{comment.content}}</p>
+          </div>
+        {{/each}}
+      {{/if}}
+      {{#unless comments}}
+        <h4>No comments yet!</h4>
+      {{/unless}}
+    </div>
+  </div>
+
+  {{#if loggedIn}}
+    <div class="row my-3">
+      <div class="col card p-2">
+        <h3>Add a Comment:</h3>
+        <form class="comment-form">
+          <div class="mb-3">
+            <label for="comment" class="form-label">Comment:</label>
+            <textarea
+              name="comment"
+              form="comment-form"
+              class="form-control"
+              rows="3"
+            ></textarea>
+          </div>
+          <div class="mb-3 text-center">
+            <button type="submit" class="btn btn-success">ADD COMMENT</button>
+          </div>
+        </form>
+      </div>
+    </div>
+    <script src="/js/postcomment.js"></script>
+  {{/if}}
+</div>
