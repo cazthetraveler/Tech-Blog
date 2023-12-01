@@ -16,14 +16,14 @@ BlogPost.init(
       allowNull: false,
     },
     content: {
-      type: DataTypes.STRING,
+      type: DataTypes.TEXT,
       allowNull: false,
     },
     posted_date: {
       type: DataTypes.DATE,
       allowNull: false,
     },
-    author_id: {
+    user_id: {
       type: DataTypes.INTEGER,
       references: {
         model: "user",
