@@ -1,37 +1,42 @@
-<section class="login-register">
-  <form class="login-form">
-    <h2>LOGIN</h2>
-    <div class="form-section">
-      <label for="email-login">E-mail:</label>
-      <input type="text" id="email-login" />
+<div class="container">
+  <div class="row">
+    <div class="col-6">
+      <form class="login-form h-100 card p-2">
+        <h2 class="text-center">LOGIN</h2>
+        <div class="mb-3">
+          <label class="form-label" for="email-login">E-mail:</label>
+          <input class="form-control" type="email" id="email-login" />
+        </div>
+        <div class="mb-3">
+          <label class="form-label" for="password-login">Password:</label>
+          <input class="form-control" type="password" id="password-login" />
+        </div>
+        <div class="mb-3 text-center">
+          <button class="btn btn-success" type="submit">LOGIN</button>
+        </div>
+      </form>
     </div>
-    <div class="form-section">
-      <label for="password-login">Password:</label>
-      <input type="password" id="password-login" />
+    <div class="col-6">
+      <form class="register-form card p-2">
+        <h2 class="text-center">REGISTER</h2>
+        <div class="mb-3">
+          <label class="form-label" for="username-register">Username:</label>
+          <input class="form-control" type="text" id="username-register" />
+        </div>
+        <div class="mb-3">
+          <label class="form-label" for="email-register">E-mail:</label>
+          <input class="form-control" type="email" id="email-register" />
+        </div>
+        <div class="mb-3">
+          <label class="form-label" for="password-register">Password:</label>
+          <input class="form-control" type="password" id="password-register" />
+        </div>
+        <div class="mb-3 text-center">
+          <button class="btn btn-success" type="submit">REGISTER</button>
+        </div>
+      </form>
     </div>
-    <div class="form-section">
-      <button type="submit">LOGIN</button>
-    </div>
-  </form>
-
-  <form class="register-form">
-    <h2>REGISTER</h2>
-    <div class="form-section">
-      <label for="username-register">Username:</label>
-      <input type="text" id="username-register" />
-    </div>
-    <div class="form-section">
-      <label for="email-register">E-mail:</label>
-      <input type="text" id="email-register" />
-    </div>
-    <div class="form-section">
-      <label for="password-register">Password:</label>
-      <input type="password" id="password-register" />
-    </div>
-    <div class="form-section">
-      <button type="submit">REGISTER</button>
-    </div>
-  </form>
-</section>
+  </div>
+</div>
 
 <script src="/js/login.js"></script>
